@@ -2,28 +2,6 @@
 	margin: 0;
 }
 
-h1 {
-	text-align: center;
-}
-
-.board {
-	display: flex;
-	border: 1px solid blue;
-	justify-content: space-evenly;
-}
-
-.col {
-	width: 300px;
-	border: 1px solid black;
-		h3 {
-			border: 2px solid black;
-		}
-
-		div {
-			padding: 20px;
-		}
-}
-
 .tiles {
 	width:  32px;
 	height: 32px;
