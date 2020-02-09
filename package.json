@@ -1,5 +1,5 @@
 {
-  "name": "cours",
+  "name": "pathFinder",
   "version": "1.0.0",
   "description": "courrrrs",
   "main": "index.js",
@@ -13,7 +13,10 @@
   "dependencies": {
     "@babel/plugin-transform-async-to-generator": "^7.8.3",
     "@babel/runtime": "^7.8.4",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "less": "^3.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
