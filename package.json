@@ -8,8 +8,7 @@
     "dev": "./node_modules/parcel-bundler/bin/cli.js ./src/index.html",
     "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html && http-server dist/",
     "server": "http-server dist/",
-    "build": "parcel build src/index.html",
-    "heroku-postbuild": "parcel build src/index.html"
+    "build": "parcel build src/index.html && http-server dist/"
   },
   "author": "",
   "license": "ISC",
