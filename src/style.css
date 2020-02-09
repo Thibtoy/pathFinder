@@ -2,22 +2,35 @@
 	margin: 0;
 }
 
+#Tiles {
+	position: absolute;
+	height: 150px;
+	width: 42px;
+	left: calc(50% - 448px);
+	top: calc(50% - 400px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: brown;
+	border: 1px solid black;
+	box-sizing: border-box;
+}
 .tiles {
 	width:  32px;
 	height: 32px;
-	position: absolute;
-	left: calc(50% - 448px);
-	top: calc(50% - 400px);
+	background-color: lightgrey;
 }
 
 .selected {
-	box-sizing: border-box;
-	border: 1px solid lightblue;
+	border: 2px solid yellow;
 }
 
 #ValidateButton {
-	width: 40px;
-	position: absolute;
-	left: calc(50% - 40px);
-	top: calc(50% + 405px);
+	width: 32px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: lightgreen;
 }

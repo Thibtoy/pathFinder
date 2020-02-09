@@ -26,13 +26,13 @@ for (let tile in tiles) {
 	img.setAttribute('value', tiles[tile].value);
 	img.setAttribute('type', tiles[tile].type);
 	img.classList.add('tiles');
-	img.style.marginTop = tiles[tile].i+'px';
+	//img.style.marginTop = tiles[tile].i+'px';
 	img.addEventListener('click', selectTile);
 	if(tile === 'mountains') {
 		img.classList.add('selected');
 		currentTile = img;
 	}
-	tilesBoard.appendChild(img);
+	tilesBoard.insertBefore(img, button);
 }
 
 function selectTile(event) {
@@ -52,7 +52,18 @@ var map = new Map(mapData);
 		window.onload = function() {
 			map.drawMap(context);
     		canva.addEventListener('mousemove', mouseMove);
-    		canva.addEventListener('click', click);
+    		canva.addEventListener('mousedown', click);
+    		canva.addEventListener('mouseout', function(event) {
+    			drawing = false;
+    			if (oldPosition.clientY != -1 && !positions[oldPosition.clientY+'$'+oldPosition.clientX]) {
+    				map.layers[1].field[oldPosition.clientY][oldPosition.clientX] = "00";
+					oldPosition = {clientY: -1, clientX: -1};
+					map.drawMap(context);
+				}
+			});
+			canva.addEventListener('mouseup', function() {
+				drawing = false;
+			}); 
 		}
 
 // function tryMouve(event) {
@@ -74,6 +85,7 @@ var map = new Map(mapData);
 // }
 
 async function moveUnit (unit, way){
+	console.log(way.length);
 	for (let i = 0, l = way.length; i < l; i++) {
 		let event = way.shift()
 		switch (true) {
@@ -119,10 +131,26 @@ var oldPosition = {
 
 var positions = {};
 var itineraire = {};
+var drawing = false;
 
 function mouseMove(event) {
 	let clientY = Math.floor(event.layerY/32);
 	let clientX = Math.floor(event.layerX/32);
+	if (drawing) {
+		let type = currentTile.getAttribute('type');
+		positions[clientY+'$'+clientX] = currentTile.getAttribute('value');
+		for (let type in itineraire) {
+			if (itineraire[type].y && itineraire[type].y === clientY && itineraire[type].x === clientX) itineraire[type] = false;
+		}
+		if (type != 'mountains') {
+			if (itineraire[type]) {
+				positions[itineraire[type].y+'$'+itineraire[type].x] = "00";
+				map.layers[1].field[itineraire[type].y][itineraire[type].x] = "00";
+				map.drawMap(context);
+			}
+			itineraire[type] = {y: clientY, x: clientX};
+		}
+	}
 	if (oldPosition.clientX != -1 && !positions[oldPosition.clientY+'$'+oldPosition.clientX]) map.layers[1].field[oldPosition.clientY][oldPosition.clientX] = "00";
 	for (let key in positions) {
 		let coords = key.split('$');
@@ -134,12 +162,13 @@ function mouseMove(event) {
 		map.layers[1].field[clientY][clientX] = currentTile.getAttribute('value');
 		oldPosition = {clientY, clientX};
 	}
-    map.drawMap(context);   
+    map.drawMap(context);  
 }
 
 function click(event) {
 	let clientY = Math.floor(event.layerY/32);
 	let clientX = Math.floor(event.layerX/32);
+	drawing = true;
 	let type = currentTile.getAttribute('type');
 	positions[clientY+'$'+clientX] = currentTile.getAttribute('value');
 	for (let type in itineraire) {
@@ -158,11 +187,14 @@ function click(event) {
 button.addEventListener('click', function() {
 	let unit = new Unit(itineraire.startPoint.x, itineraire.startPoint.y, 0)
 	let way = new PathFinder(itineraire.startPoint, map.layers[1], itineraire.flag)
+	canva.removeEventListener('mousedown', click);
+	canva.removeEventListener('mousemove', mouseMove);
 	map.addUnit(unit);
 	positions[itineraire.startPoint.y+'$'+itineraire.startPoint.x] = "00";
 	map.layers[1].field[itineraire.startPoint.y][itineraire.startPoint.x] = "00";
 	map.drawMap(context);
 	way.run();
 	way = way.getBestWay();
+	console.log(way);
 	moveUnit(unit, way.route);
 })
