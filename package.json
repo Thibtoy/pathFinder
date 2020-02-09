@@ -6,19 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/parcel-bundler/bin/cli.js ./src/index.html",
-    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html --public--url"
+    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html && http-server dist/",
+    "server": "http-server dist/",
+    "build": "parcel build src/index.html",
+    "heroku-postbuild": "parcel build src/index.html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.8.4",
     "@babel/plugin-transform-async-to-generator": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/runtime": "^7.8.4",
-    "parcel-bundler": "^1.12.4",
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-transform-runtime": "^7.8.3"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-transform-runtime": "^7.8.3"
+    "http-server": "^0.12.1",
+    "parcel-bundler": "^1.12.4"
   }
 }
