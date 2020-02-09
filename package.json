@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/parcel-bundler/bin/cli.js ./src/index.html",
-    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html",
-    "build": "parcel build src/index.html",
-    "heroku-postbuild": "parcel build src/index.html"
+    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html --public--url",
+    "build": "parcel build src/index.html --public--url",
+    "heroku-postbuild": "parcel build src/index.html --public--url"
   },
   "author": "",
   "license": "ISC",
