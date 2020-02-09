@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/parcel-bundler/bin/cli.js ./src/index.html",
-    "build": "echo 'local developpement'"
+    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html"
   },
   "author": "",
   "license": "ISC",
