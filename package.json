@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/parcel-bundler/bin/cli.js ./src/index.html",
-    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html && http-server dist/",
+    "start": "./node_modules/parcel-bundler/bin/cli.js build ./src/index.html",
     "server": "http-server dist/",
-    "build": "parcel build src/index.html && http-server dist/"
+    "build": "parcel build src/index.html"
   },
   "author": "",
   "license": "ISC",
